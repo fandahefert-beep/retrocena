@@ -6,7 +6,7 @@
   <title>RETROCENA.CZ - Otestuj své vzpomínky na ceny!</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Obrázek se přizpůsobí tak, aby byl VIDĚT CELÝ bez jakéhokoliv ořezu */
+    /* Zobrazení celého obrázku bez ořezu */
     .card-img {
       width: 100%;
       height: 240px;
@@ -105,6 +105,7 @@
 
         <button 
           id="submit-btn"
+          onclick="submitGuess()"
           class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-3 px-6 rounded-xl text-lg transition-transform active:scale-95 shadow-lg"
         >
           Potvrdit tip
@@ -132,6 +133,7 @@
 
         <button 
           id="next-btn"
+          onclick="nextRound()"
           class="w-full bg-slate-100 hover:bg-white text-slate-950 font-bold py-2.5 px-6 rounded-xl text-base transition"
         >
           Další kolo ➔
@@ -151,10 +153,32 @@
         Vyhodnocení...
       </p>
 
+      <!-- SEKCE PRO SDÍLENÍ VÝSLEDKŮ -->
+      <div class="space-y-2 pt-2 border-t border-slate-800">
+        <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Vyzvi přátele a pochlub se výsledkem:</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <button 
+            onclick="shareResult()" 
+            class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-2.5 px-4 rounded-xl text-sm transition flex items-center justify-center gap-2 shadow-lg"
+          >
+            📲 Sdílet výsledky
+          </button>
+
+          <button 
+            onclick="copyResultText()" 
+            id="copy-btn"
+            class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 px-4 rounded-xl border border-slate-700 text-sm transition flex items-center justify-center gap-2"
+          >
+            📋 Zkopírovat výzvu
+          </button>
+        </div>
+      </div>
+
       <button 
         id="restart-btn" 
         onclick="resetToHome()" 
-        class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-3 px-6 rounded-xl border border-slate-700 text-base transition"
+        class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-3 px-6 rounded-xl border border-slate-700 text-base transition mt-4"
       >
         🔄 Zpět do nabídky
       </button>
