@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RETROCENA.CZ - Otestuj své vzpomínky na ceny!</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Obrázek se přizpůsobí tak, aby byl VIDĚT CELÝ bez jakéhokoliv ořezu */
+    .card-img {
+      width: 100%;
+      height: 240px;
+      object-fit: contain;
+      object-position: center;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans flex flex-col items-center justify-center p-3 sm:p-4">
+
+  <!-- HLAVIČKA -->
+  <header class="text-center mb-4 sm:mb-5">
+    <a href="#" onclick="resetToHome(event)" class="inline-block group hover:opacity-90 transition">
+      <h1 class="text-4xl sm:text-5xl font-black text-amber-500 tracking-wider uppercase cursor-pointer">
+        RETROCENA<span class="text-slate-100">.CZ</span>
+      </h1>
+    </a>
+    <p class="text-slate-400 text-xs sm:text-sm mt-1">
+      Otestuj své vzpomínky na ceny z minulých let!
+    </p>
+  </header>
+
+  <!-- HLAVNÍ KONTEJNER -->
+  <main class="w-full max-w-xl bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-2xl">
+    
+    <!-- ÚVODNÍ OBRAZOVKA (HLAVNÍ NABÍDKA) -->
+    <div id="start-screen" class="text-center space-y-6 py-2">
+      <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-medium">
+        Poznáš, kolik stál chléb v roce 1993, Fabie v roce 2000 nebo benzín v roce 2007?
+      </p>
+      
+      <div class="space-y-3 pt-1">
+        <label class="block text-xs uppercase tracking-widest font-black text-slate-400">
+          Vyber si dekádu nebo mix:
+        </label>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-base">
+          <button onclick="startGame('mix')" class="sm:col-span-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-3 px-5 rounded-xl text-lg transition-all transform hover:-translate-y-0.5 shadow-lg shadow-amber-500/10">
+            🎲 Mix ročníků
+          </button>
+          <button onclick="startGame('1993')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold py-2.5 px-5 rounded-xl border border-slate-700 hover:border-slate-600 transition-all text-base">
+            📅 Rok 1993
+          </button>
+          <button onclick="startGame('2000')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold py-2.5 px-5 rounded-xl border border-slate-700 hover:border-slate-600 transition-all text-base">
+            📅 Rok 2000
+          </button>
+          <button onclick="startGame('2007')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold py-2.5 px-5 rounded-xl border border-slate-700 hover:border-slate-600 transition-all text-base">
+            📅 Rok 2007
+          </button>
+          <button onclick="startGame('2015')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold py-2.5 px-5 rounded-xl border border-slate-700 hover:border-slate-600 transition-all text-base">
+            📅 Rok 2015
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERNÍ KARTA -->
+    <div id="game-card" class="hidden space-y-4">
+      <!-- Hlavička kola -->
+      <div class="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-400">
+        <span id="round-indicator" class="bg-slate-800 px-3 py-1 rounded-full border border-slate-700">Kolo 1/10</span>
+        <span class="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full border border-amber-500/20">
+          Cena v roce <span id="item-year">2000</span>
+        </span>
+      </div>
+
+      <!-- Obrázek položky s tmavým pozadím -->
+      <div class="overflow-hidden rounded-xl border border-slate-800 bg-slate-950 p-1 flex items-center justify-center">
+        <img id="item-image" class="card-img" src="" alt="Položka">
+      </div>
+
+      <!-- Detail položky -->
+      <div class="text-center space-y-0.5">
+        <h2 id="item-title" class="text-xl font-bold text-slate-100">Název položky</h2>
+        <p id="item-desc" class="text-xs sm:text-sm text-slate-400">Popis položky</p>
+      </div>
+
+      <!-- Formulář pro tipování -->
+      <div id="guess-form" class="space-y-3 pt-1">
+        <div>
+          <label for="price-input" class="block text-center text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">
+            Tvůj odhad tehdejší ceny:
+          </label>
+          <div class="relative max-w-xs mx-auto">
+            <input 
+              type="number" 
+              id="price-input" 
+              placeholder="0" 
+              min="0"
+              step="any"
+              class="w-full bg-slate-950 border border-slate-700 rounded-xl py-2.5 px-4 text-center text-2xl font-black text-amber-400 focus:outline-none focus:border-amber-500 transition"
+            >
+            <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">Kč</span>
+          </div>
+        </div>
+
+        <button 
+          id="submit-btn"
+          class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-3 px-6 rounded-xl text-lg transition-transform active:scale-95 shadow-lg"
+        >
+          Potvrdit tip
+        </button>
+      </div>
+
+      <!-- Výsledkový panel kola -->
+      <div id="result-panel" class="hidden space-y-3 text-center bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+        <div id="diff-text" class="text-sm font-semibold"></div>
+
+        <div class="grid grid-cols-2 gap-3 text-left bg-slate-900 p-3 rounded-lg text-xs sm:text-sm">
+          <div>
+            <span class="text-slate-500 block">Reálná cena v roce <span id="res-year">2000</span>:</span>
+            <span id="real-price" class="text-base font-bold text-amber-400">0 Kč</span>
+          </div>
+          <div>
+            <span class="text-slate-500 block">Cena dnes (odhad):</span>
+            <span id="today-price" class="text-base font-bold text-slate-200">0 Kč</span>
+          </div>
+        </div>
+
+        <div id="wage-context" class="text-xs text-slate-400 leading-relaxed border-t border-slate-800 pt-2">
+          <!-- Přepočet mzdy v JS -->
+        </div>
+
+        <button 
+          id="next-btn"
+          class="w-full bg-slate-100 hover:bg-white text-slate-950 font-bold py-2.5 px-6 rounded-xl text-base transition"
+        >
+          Další kolo ➔
+        </button>
+      </div>
+    </div>
+
+    <!-- ZÁVĚREČNÁ OBRAZOVKA -->
+    <div id="final-screen" class="hidden text-center space-y-5 py-2">
+      <div class="space-y-1">
+        <h2 class="text-2xl font-black text-slate-100">Konec hry!</h2>
+        <p class="text-sm text-slate-400">Tvoje celkové skóre je:</p>
+        <div id="final-score" class="text-4xl font-black text-amber-400">0 / 10 000</div>
+      </div>
+
+      <p id="final-rank" class="text-sm font-medium text-slate-300 italic bg-slate-950/50 p-3 rounded-xl border border-slate-800">
+        Vyhodnocení...
+      </p>
+
+      <button 
+        id="restart-btn" 
+        onclick="resetToHome()" 
+        class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-3 px-6 rounded-xl border border-slate-700 text-base transition"
+      >
+        🔄 Zpět do nabídky
+      </button>
+    </div>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
