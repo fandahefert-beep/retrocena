@@ -8,8 +8,9 @@ const AVERAGE_WAGES = {
   2015: 26467
 };
 
-// Databáze položek
+// Rozšířená databáze položek (po 5 položkách na ročník)
 const itemsDatabase = [
+  // --- 1993 ---
   {
     id: 1,
     title: "Chléb konzumní (1 kg)",
@@ -21,7 +22,7 @@ const itemsDatabase = [
   },
   {
     id: 2,
-    title: "Časopis Čtyřlístek (číslo 205)",
+    title: "Časopis Čtyřlístek",
     desc: "Sešitové číslo v PNS stánku",
     year: 1993,
     price: 12,
@@ -30,6 +31,35 @@ const itemsDatabase = [
   },
   {
     id: 3,
+    title: "Mléko pasterované (1 liter)",
+    desc: "Sáčkové mléko",
+    year: 1993,
+    price: 6.50,
+    todayPrice: 24,
+    image: "images/mleko.jpg"
+  },
+  {
+    id: 4,
+    title: "Lístek na MHD v Praze",
+    desc: "Základní přestupní jízdenka",
+    year: 1993,
+    price: 6,
+    todayPrice: 40,
+    image: "images/mhd.jpg"
+  },
+  {
+    id: 5,
+    title: "Cigarety Sparta",
+    desc: "Krabička tvrdých Spart",
+    year: 1993,
+    price: 28,
+    todayPrice: 150,
+    image: "images/sparty.jpg"
+  },
+
+  // --- 2000 ---
+  {
+    id: 6,
     title: "Škoda Fabia 1.4 MPI (nová)",
     desc: "Základní výbava Classic",
     year: 2000,
@@ -38,7 +68,7 @@ const itemsDatabase = [
     image: "images/fabia.jpg"
   },
   {
-    id: 4,
+    id: 7,
     title: "Nokia 3310",
     desc: "Legendární mobilní telefon",
     year: 2000,
@@ -47,7 +77,36 @@ const itemsDatabase = [
     image: "images/nokia.jpg"
   },
   {
-    id: 5,
+    id: 8,
+    title: "Lahvové pivo Gambrinus 10°",
+    desc: "Půllitrová láhev (vč. zálohy)",
+    year: 2000,
+    price: 9.90,
+    todayPrice: 21,
+    image: "images/pivo.jpg"
+  },
+  {
+    id: 9,
+    title: "Čokoláda Studentská pečeť",
+    desc: "Tabulka 180g",
+    year: 2000,
+    price: 32,
+    todayPrice: 75,
+    image: "images/specet.jpg"
+  },
+  {
+    id: 10,
+    title: "Big Mac Menu v McDonald's",
+    desc: "Sendvič, střední hranolky a nápoj",
+    year: 2000,
+    price: 89,
+    todayPrice: 169,
+    image: "images/bigmac.jpg"
+  },
+
+  // --- 2007 ---
+  {
+    id: 11,
     title: "Benzín Natural 95 (1 litr)",
     desc: "Průměrná cena na čerpacích stanicích",
     year: 2007,
@@ -56,7 +115,7 @@ const itemsDatabase = [
     image: "images/benzin.jpg"
   },
   {
-    id: 6,
+    id: 12,
     title: "Lístek do kina na film Vratné lahve",
     desc: "Standardní vstupenka v multiplexu",
     year: 2007,
@@ -65,7 +124,36 @@ const itemsDatabase = [
     image: "images/kino.jpg"
   },
   {
-    id: 7,
+    id: 13,
+    title: "Káva Nescafé Gold (200g)",
+    desc: "Instantní káva ve skle",
+    year: 2007,
+    price: 159,
+    todayPrice: 230,
+    image: "images/nescafe.jpg"
+  },
+  {
+    id: 14,
+    title: "Měsíční paušál T-Mobile / O2",
+    desc: "Průměrný základní balíček s volnými minutami",
+    year: 2007,
+    price: 499,
+    todayPrice: 650,
+    image: "images/pausal.jpg"
+  },
+  {
+    id: 15,
+    title: "LCD TV Samsung 32\" (81 cm)",
+    desc: "HD Ready televizor",
+    year: 2007,
+    price: 18990,
+    todayPrice: 4500,
+    image: "images/lcdtv.jpg"
+  },
+
+  // --- 2015 ---
+  {
+    id: 16,
     title: "Kofola (2 litry)",
     desc: "PET láhev v akci / běžná cena",
     year: 2015,
@@ -74,13 +162,40 @@ const itemsDatabase = [
     image: "images/kofola.jpg"
   },
   {
-    id: 8,
+    id: 17,
     title: "PlayStation 4 500GB",
     desc: "Herní konzole",
     year: 2015,
     price: 9990,
     todayPrice: 6500,
     image: "images/ps4.jpg"
+  },
+  {
+    id: 18,
+    title: "Apple iPhone 6 (16GB)",
+    desc: "Nový smartphone od Apple",
+    year: 2015,
+    price: 21190,
+    todayPrice: 25000,
+    image: "images/iphone.jpg"
+  },
+  {
+    id: 19,
+    title: "Maslo 250g",
+    desc: "Čerstvé kostkové máslo",
+    year: 2015,
+    price: 34,
+    todayPrice: 62,
+    image: "images/maslo.jpg"
+  },
+  {
+    id: 20,
+    title: "Měsíční předplatné Netflix",
+    desc: "Standard balíček (HD rozlišení)",
+    year: 2015,
+    price: 219,
+    todayPrice: 309,
+    image: "images/netflix.jpg"
   }
 ];
 
@@ -92,7 +207,7 @@ let totalScore = 0;
 // Generátor náhradního SVG obrázku v případě chybějícího souboru
 function createFallbackSVG(title) {
   const encodedTitle = encodeURIComponent(title);
-  return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="100%" height="100%" fill="%230f172a"/><text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="%23f59e0b" font-family="sans-serif" font-size="28 font-weight="bold">${encodedTitle}</text><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" fill="%2364748b" font-family="sans-serif" font-size="16">RetroCena.cz</text></svg>`;
+  return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="100%" height="100%" fill="%230f172a"/><text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="%23f59e0b" font-family="sans-serif" font-size="28" font-weight="bold">${encodedTitle}</text><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" fill="%2364748b" font-family="sans-serif" font-size="16">RetroCena.cz</text></svg>`;
 }
 
 // --- HERNÍ LOGIKA ---
@@ -106,9 +221,11 @@ function resetToHome(e) {
 
 function startGame(mode) {
   if (mode === 'mix') {
-    currentItems = [...itemsDatabase].sort(() => 0.5 - Math.random());
+    // Zamícháme všechny a vybereme přesně 10 položek pro 10 kol
+    currentItems = [...itemsDatabase].sort(() => 0.5 - Math.random()).slice(0, 10);
   } else {
     const selectedYear = parseInt(mode);
+    // Vybereme všechny dostupné položky z daného roku
     currentItems = itemsDatabase.filter(item => item.year === selectedYear).sort(() => 0.5 - Math.random());
   }
 
