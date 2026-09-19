@@ -3,189 +3,195 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RETROCENA.CZ - Otestuj své vzpomínky na ceny!</title>
+  <title>RETROCENA.CZ - Poznáš, kolik to stálo?</title>
+  
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Zobrazení celého obrázku bez ořezu */
-    .card-img {
-      width: 100%;
-      height: 240px;
-      object-fit: contain;
-      object-position: center;
-    }
-  </style>
+  
+  <!-- Firebase SDK (Compat verze) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+  
+  <!-- Fonty FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans flex flex-col items-center justify-center p-3 sm:p-4">
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans flex flex-col justify-between selection:bg-amber-500 selection:text-slate-950">
 
-  <!-- HLAVIČKA -->
-  <header class="text-center mb-4 sm:mb-5">
-    <a href="#" onclick="resetToHome(event)" class="inline-block group hover:opacity-90 transition">
-      <h1 class="text-4xl sm:text-5xl font-black text-amber-500 tracking-wider uppercase cursor-pointer">
-        RETROCENA<span class="text-slate-100">.CZ</span>
-      </h1>
-    </a>
-    <p class="text-slate-400 text-xs sm:text-sm mt-1">
-      Otestuj své vzpomínky na ceny z minulých let!
-    </p>
+  <!-- Navigace / Header -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="#" onclick="resetToHome(event)" class="flex items-center gap-2 group">
+        <span class="text-2xl">🕹️</span>
+        <span class="text-xl font-black tracking-wider bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent group-hover:from-amber-300 group-hover:to-orange-400 transition-all">
+          RETROCENA<span class="text-xs text-amber-500 font-mono ml-0.5">.CZ</span>
+        </span>
+      </a>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
+        Retro Kvíz
+      </span>
+    </div>
   </header>
 
-  <!-- HLAVNÍ KONTEJNER -->
-  <main class="w-full max-w-xl bg-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-2xl">
+  <!-- Hlavní obsah -->
+  <main class="max-w-xl mx-auto px-4 py-8 flex-1 flex flex-col justify-center w-full">
     
-    <!-- ÚVODNÍ OBRAZOVKA (HLAVNÍ NABÍDKA) -->
-    <div id="start-screen" class="text-center space-y-6 py-2">
-      <p class="text-slate-200 text-base sm:text-lg leading-relaxed font-medium">
-        Poznáš, kolik stál chléb v roce 1993, Fabie v roce 2000 nebo benzín v roce 2007?
-      </p>
+    <!-- 1. ÚVODNÍ OBRAZOVKA -->
+    <div id="start-screen" class="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 text-center shadow-2xl relative overflow-hidden">
+      <div class="absolute -top-24 -right-24 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl"></div>
       
-      <div class="space-y-3 pt-1">
-        <label class="block text-xs uppercase tracking-widest font-black text-slate-400">
-          Vyber si dekádu nebo mix:
-        </label>
+      <span class="text-5xl mb-4 block animate-bounce">📻</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white mb-3">
+        Poznáš, kolik to stálo?
+      </h1>
+      <p class="text-slate-400 mb-8 text-sm sm:text-base leading-relaxed">
+        Otestuj své vzpomínky! Tipni si historické ceny potravin, elektroniky i aut a porovnej své skóre v online žebříčku.
+      </p>
+
+      <div class="space-y-3">
+        <button onclick="startGame('mix')" class="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black py-4 px-6 rounded-xl text-lg shadow-lg shadow-amber-500/20 transition-all transform active:scale-95 flex items-center justify-center gap-2">
+          <span>🎮 HRÁT MIX ROČNÍKŮ (10 KOL)</span>
+        </button>
         
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-base">
-          <button onclick="startGame('mix')" class="sm:col-span-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-3 px-5 rounded-xl text-lg transition-all transform hover:-translate-y-0.5 shadow-lg shadow-amber-500/10">
-            🎲 Mix ročníků
+        <div class="relative flex py-2 items-center">
+          <div class="flex-grow border-t border-slate-800"></div>
+          <span class="flex-shrink mx-4 text-xs text-slate-500 font-mono uppercase">Nebo vyber konkrétní rok</span>
+          <div class="flex-grow border-t border-slate-800"></div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <button onclick="startGame(1993)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 px-3 rounded-lg border border-slate-700/50 text-sm transition-all">
+            Rok 1993
           </button>
-          <button onclick="startGame('1993')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold py-2.5 px-5 rounded-xl border border-slate-700 hover:border-slate-600 transition-all text-base">
-            📅 Rok 1993
+          <button onclick="startGame(2000)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 px-3 rounded-lg border border-slate-700/50 text-sm transition-all">
+            Rok 2000
           </button>
-          <button onclick="startGame('2000')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold py-2.5 px-5 rounded-xl border border-slate-700 hover:border-slate-600 transition-all text-base">
-            📅 Rok 2000
+          <button onclick="startGame(2007)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 px-3 rounded-lg border border-slate-700/50 text-sm transition-all">
+            Rok 2007
           </button>
-          <button onclick="startGame('2007')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold py-2.5 px-5 rounded-xl border border-slate-700 hover:border-slate-600 transition-all text-base">
-            📅 Rok 2007
-          </button>
-          <button onclick="startGame('2015')" class="bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold py-2.5 px-5 rounded-xl border border-slate-700 hover:border-slate-600 transition-all text-base">
-            📅 Rok 2015
+          <button onclick="startGame(2015)" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 px-3 rounded-lg border border-slate-700/50 text-sm transition-all">
+            Rok 2015
           </button>
         </div>
       </div>
     </div>
 
-    <!-- HERNÍ KARTA -->
-    <div id="game-card" class="hidden space-y-4">
-      <!-- Hlavička kola -->
-      <div class="flex justify-between items-center text-xs font-bold uppercase tracking-wider text-slate-400">
-        <span id="round-indicator" class="bg-slate-800 px-3 py-1 rounded-full border border-slate-700">Kolo 1/10</span>
-        <span class="bg-amber-500/10 text-amber-400 px-3 py-1 rounded-full border border-amber-500/20">
-          Cena v roce <span id="item-year">2000</span>
+    <!-- 2. HERNÍ KARTA -->
+    <div id="game-card" class="hidden bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+      <!-- Hlavička karty s počítadlem a rokem -->
+      <div class="bg-slate-800/80 px-6 py-3 border-b border-slate-700/50 flex justify-between items-center text-sm">
+        <span id="round-indicator" class="font-mono text-amber-400 font-bold">Kolo 1/10</span>
+        <span class="bg-amber-500/20 text-amber-300 font-bold px-3 py-0.5 rounded-full border border-amber-500/30">
+          Rok <span id="item-year">1993</span>
         </span>
       </div>
 
-      <!-- Obrázek položky s tmavým pozadím -->
-      <div class="overflow-hidden rounded-xl border border-slate-800 bg-slate-950 p-1 flex items-center justify-center">
-        <img id="item-image" class="card-img" src="" alt="Položka">
+      <!-- Obrázek položky -->
+      <div class="relative h-56 sm:h-64 bg-slate-950 overflow-hidden">
+        <img id="item-image" src="" alt="Položka" class="w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
       </div>
 
-      <!-- Detail položky -->
-      <div class="text-center space-y-0.5">
-        <h2 id="item-title" class="text-xl font-bold text-slate-100">Název položky</h2>
-        <p id="item-desc" class="text-xs sm:text-sm text-slate-400">Popis položky</p>
-      </div>
+      <!-- Informace a formulář -->
+      <div class="p-6">
+        <h2 id="item-title" class="text-2xl font-bold text-white mb-1">Název položky</h2>
+        <p id="item-desc" class="text-slate-400 text-sm mb-6">Popis položky</p>
 
-      <!-- Formulář pro tipování -->
-      <div id="guess-form" class="space-y-3 pt-1">
-        <div>
-          <label for="price-input" class="block text-center text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">
-            Tvůj odhad tehdejší ceny:
-          </label>
-          <div class="relative max-w-xs mx-auto">
-            <input 
-              type="number" 
-              id="price-input" 
-              placeholder="0" 
-              min="0"
-              step="any"
-              class="w-full bg-slate-950 border border-slate-700 rounded-xl py-2.5 px-4 text-center text-2xl font-black text-amber-400 focus:outline-none focus:border-amber-500 transition"
-            >
-            <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">Kč</span>
-          </div>
-        </div>
-
-        <button 
-          id="submit-btn"
-          onclick="submitGuess()"
-          class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-3 px-6 rounded-xl text-lg transition-transform active:scale-95 shadow-lg"
-        >
-          Potvrdit tip
-        </button>
-      </div>
-
-      <!-- Výsledkový panel kola -->
-      <div id="result-panel" class="hidden space-y-3 text-center bg-slate-950/60 p-4 rounded-xl border border-slate-800">
-        <div id="diff-text" class="text-sm font-semibold"></div>
-
-        <div class="grid grid-cols-2 gap-3 text-left bg-slate-900 p-3 rounded-lg text-xs sm:text-sm">
+        <!-- Formulář pro tipování -->
+        <div id="guess-form" class="space-y-4">
           <div>
-            <span class="text-slate-500 block">Reálná cena v roce <span id="res-year">2000</span>:</span>
-            <span id="real-price" class="text-base font-bold text-amber-400">0 Kč</span>
+            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Kolik to tehdy stálo? (v Kč)</label>
+            <div class="relative">
+              <input type="number" id="price-input" step="any" placeholder="Zadej částku v Kč" 
+                     class="w-full bg-slate-950 border-2 border-slate-700 focus:border-amber-400 text-white font-mono text-xl rounded-xl px-4 py-3 focus:outline-none transition-all pl-4 pr-12">
+              <span class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-500 font-bold">Kč</span>
+            </div>
           </div>
-          <div>
-            <span class="text-slate-500 block">Cena dnes (odhad):</span>
-            <span id="today-price" class="text-base font-bold text-slate-200">0 Kč</span>
-          </div>
+          <button onclick="submitGuess()" class="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-3.5 px-6 rounded-xl text-lg shadow-md transition-all active:scale-98">
+            POTVRDIT TIP
+          </button>
         </div>
 
-        <div id="wage-context" class="text-xs text-slate-400 leading-relaxed border-t border-slate-800 pt-2">
-          <!-- Přepočet mzdy v JS -->
-        </div>
+        <!-- Panel s výsledkem kola -->
+        <div id="result-panel" class="hidden space-y-4">
+          <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 space-y-3">
+            <div class="flex justify-between items-center text-sm border-b border-slate-800 pb-2">
+              <span class="text-slate-400">Tvoji vyhodnocení:</span>
+              <span id="diff-text" class="font-bold"></span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400 text-sm">Skutečná cena v roce <span id="res-year"></span>:</span>
+              <span id="real-price" class="text-xl font-black text-amber-400 font-mono"></span>
+            </div>
+            <div class="flex justify-between items-center text-xs text-slate-500 pt-1 border-t border-slate-800/60">
+              <span>Cena dnes (pro srovnání):</span>
+              <span id="today-price" class="font-mono"></span>
+            </div>
+          </div>
 
-        <button 
-          id="next-btn"
-          onclick="nextRound()"
-          class="w-full bg-slate-100 hover:bg-white text-slate-950 font-bold py-2.5 px-6 rounded-xl text-base transition"
-        >
-          Další kolo ➔
-        </button>
+          <div id="wage-context" class="p-3 bg-slate-800/50 rounded-lg text-xs text-slate-300 leading-relaxed border border-slate-700/30"></div>
+
+          <button onclick="nextRound()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-bold py-3 px-6 rounded-xl text-base transition-all flex items-center justify-center gap-2 border border-slate-700">
+            <span>DALŠÍ KOLO</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- ZÁVĚREČNÁ OBRAZOVKA -->
-    <div id="final-screen" class="hidden text-center space-y-5 py-2">
-      <div class="space-y-1">
-        <h2 class="text-2xl font-black text-slate-100">Konec hry!</h2>
-        <p class="text-sm text-slate-400">Tvoje celkové skóre je:</p>
-        <div id="final-score" class="text-4xl font-black text-amber-400">0 / 10 000</div>
+    <!-- 3. FINÁLNÍ OBRAZOVKA -->
+    <div id="final-screen" class="hidden bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 text-center shadow-2xl">
+      <span class="text-5xl mb-3 block">🎉</span>
+      <h2 class="text-3xl font-extrabold text-white mb-1">Konec hry!</h2>
+      <p class="text-slate-400 text-sm mb-6">Tady je tvé celkové vyhodnocení:</p>
+
+      <div class="bg-slate-950 border border-slate-800 rounded-xl p-6 mb-6">
+        <div class="text-xs uppercase font-semibold text-slate-500 tracking-wider mb-1">Dosažené skóre</div>
+        <div id="final-score" class="text-4xl sm:text-5xl font-black text-amber-400 font-mono mb-3">0 / 10 000</div>
+        <div id="final-rank" class="text-sm font-medium text-slate-300 italic"></div>
       </div>
 
-      <p id="final-rank" class="text-sm font-medium text-slate-300 italic bg-slate-950/50 p-3 rounded-xl border border-slate-800">
-        Vyhodnocení...
-      </p>
-
-      <!-- SEKCE PRO SDÍLENÍ VÝSLEDKŮ -->
-      <div class="space-y-2 pt-2 border-t border-slate-800">
-        <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Vyzvi přátele a pochlub se výsledkem:</p>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          <button 
-            onclick="shareResult()" 
-            class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-2.5 px-4 rounded-xl text-sm transition flex items-center justify-center gap-2 shadow-lg"
-          >
-            📲 Sdílet výsledky
+      <!-- Online Žebříček sekce -->
+      <div class="mb-6 p-4 bg-slate-800/80 rounded-xl border border-slate-700/80">
+        <h3 class="text-lg font-bold text-amber-400 mb-3 flex items-center justify-center gap-2">
+          <span>🏆</span> Online žebříček nejlepších
+        </h3>
+        
+        <div id="save-score-form" class="flex gap-2 mb-4">
+          <input type="text" id="player-name" placeholder="Tvoje jméno..." maxlength="15" 
+                 class="bg-slate-950 border border-slate-700 text-white rounded-lg px-3 py-2 text-sm flex-1 focus:outline-none focus:border-amber-400">
+          <button onclick="saveScoreToLeaderboard()" 
+                  class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-lg text-sm transition-all shadow-md">
+            Uložit
           </button>
+        </div>
 
-          <button 
-            onclick="copyResultText()" 
-            id="copy-btn"
-            class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-2.5 px-4 rounded-xl border border-slate-700 text-sm transition flex items-center justify-center gap-2"
-          >
-            📋 Zkopírovat výzvu
-          </button>
+        <div id="leaderboard-list" class="space-y-1.5 text-left text-sm text-slate-300 max-h-48 overflow-y-auto pr-1">
+          <!-- Zde se dynamicky načte TOP 10 z Firebase -->
         </div>
       </div>
 
-      <button 
-        id="restart-btn" 
-        onclick="resetToHome()" 
-        class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold py-3 px-6 rounded-xl border border-slate-700 text-base transition mt-4"
-      >
-        🔄 Zpět do nabídky
-      </button>
+      <!-- Akční tlačítka na konci -->
+      <div class="space-y-2">
+        <button onclick="shareResult()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-6 rounded-xl transition-all flex items-center justify-center gap-2 shadow-md">
+          <i class="fa-solid fa-share-nodes"></i>
+          <span>Sdílet výsledek / Výzva přátelům</span>
+        </button>
+        <button onclick="resetToHome(event)" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold py-3 px-6 rounded-xl transition-all border border-slate-700">
+          Zpět na hlavní menu
+        </button>
+      </div>
     </div>
 
   </main>
 
+  <!-- Patka -->
+  <footer class="border-t border-slate-900 bg-slate-950 py-4 text-center text-xs text-slate-600">
+    <div class="max-w-4xl mx-auto px-4">
+      © RetroCena.cz – Testuj své vzpomínky na ceny v ČR
+    </div>
+  </footer>
+
+  <!-- Načtení hlavního JS skriptu -->
   <script src="app.js"></script>
 </body>
 </html>
