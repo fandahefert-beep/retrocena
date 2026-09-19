@@ -1,6 +1,22 @@
+// --- FIREBASE KONFIGURACE ---
+const firebaseConfig = {
+  apiKey: "AIzaSyBJSYFbmGtIOZkA91RJzz3JSslTloX7gY0",
+  authDomain: "project-8891257192597548136.firebaseapp.com",
+  databaseURL: "https://project-8891257192597548136-default-rtdb.firebaseio.com",
+  projectId: "project-8891257192597548136",
+  storageBucket: "project-8891257192597548136.firebasestorage.app",
+  messagingSenderId: "778792675176",
+  appId: "1:778792675176:web:3c9a220e70a94e400f58dd",
+  measurementId: "G-5712NB10KN"
+};
+
+// Inicializace Firebase
+if (typeof firebase !== 'undefined') {
+  firebase.initializeApp(firebaseConfig);
+}
+
 // --- DATA A KONFIGURACE ---
 
-// Průměrné hrubé měsíční mzdy v ČR pro kontext
 const AVERAGE_WAGES = {
   1993: 5900,
   2000: 13614,
@@ -8,195 +24,34 @@ const AVERAGE_WAGES = {
   2015: 26467
 };
 
-// Kompletní databáze 20 položek přesně podle tvých obrázků (5 na každý ročník)
 const itemsDatabase = [
   // --- 1993 ---
-  {
-    id: 1,
-    title: "Chléb konzumní (1 kg)",
-    desc: "Kvasový pšenično-žitný chléb",
-    year: 1993,
-    price: 14,
-    todayPrice: 42,
-    image: "images/chleb.jpg"
-  },
-  {
-    id: 2,
-    title: "Časopis Čtyřlístek",
-    desc: "Sešitové číslo v PNS stánku",
-    year: 1993,
-    price: 12,
-    todayPrice: 50,
-    image: "images/ctyrlistek.jpg"
-  },
-  {
-    id: 3,
-    title: "Mléko pasterované (1 l)",
-    desc: "Sáčkové polotučné mléko",
-    year: 1993,
-    price: 6.50,
-    todayPrice: 24,
-    image: "images/mleko.jpg"
-  },
-  {
-    id: 4,
-    title: "Jízdenka na MHD v Praze",
-    desc: "Základní přestupní jízdenka",
-    year: 1993,
-    price: 6,
-    todayPrice: 40,
-    image: "images/jizdenka.jpg"
-  },
-  {
-    id: 5,
-    title: "Cigarety Sparta",
-    desc: "Krabička tvrdých Spart",
-    year: 1993,
-    price: 28,
-    todayPrice: 150,
-    image: "images/cigarety.jpg"
-  },
+  { id: 1, title: "Chléb konzumní (1 kg)", desc: "Kvasový pšenično-žitný chléb", year: 1993, price: 14, todayPrice: 42, image: "images/chleb.jpg" },
+  { id: 2, title: "Časopis Čtyřlístek", desc: "Sešitové číslo v PNS stánku", year: 1993, price: 12, todayPrice: 50, image: "images/ctyrlistek.jpg" },
+  { id: 3, title: "Mléko pasterované (1 l)", desc: "Sáčkové polotučné mléko", year: 1993, price: 6.50, todayPrice: 24, image: "images/mleko.jpg" },
+  { id: 4, title: "Jízdenka na MHD v Praze", desc: "Základní přestupní jízdenka", year: 1993, price: 6, todayPrice: 40, image: "images/jizdenka.jpg" },
+  { id: 5, title: "Cigarety Sparta", desc: "Krabička tvrdých Spart", year: 1993, price: 28, todayPrice: 150, image: "images/cigarety.jpg" },
 
   // --- 2000 ---
-  {
-    id: 6,
-    title: "Škoda Fabia 1.4 MPI (nová)",
-    desc: "Základní výbava Classic",
-    year: 2000,
-    price: 249900,
-    todayPrice: 380000,
-    image: "images/fabia.jpg"
-  },
-  {
-    id: 7,
-    title: "Nokia 3310",
-    desc: "Legendární mobilní telefon",
-    year: 2000,
-    price: 9990,
-    todayPrice: 1500,
-    image: "images/nokia.jpg"
-  },
-  {
-    id: 8,
-    title: "Lahvové pivo Gambrinus 10°",
-    desc: "Půllitrová láhev (vč. zálohy)",
-    year: 2000,
-    price: 9.90,
-    todayPrice: 21,
-    image: "images/pivo.jpg"
-  },
-  {
-    id: 9,
-    title: "Míša nanuk (55 ml)",
-    desc: "Tvarohový nanuk v čokoládě",
-    year: 2000,
-    price: 8,
-    todayPrice: 24,
-    image: "images/misa.jpg"
-  },
-  {
-    id: 10,
-    title: "Cukrářská vata / Sladkosti",
-    desc: "Balíček vatových bonbónů",
-    year: 2000,
-    price: 15,
-    todayPrice: 45,
-    image: "images/vata.jpg"
-  },
+  { id: 6, title: "Škoda Fabia 1.4 MPI (nová)", desc: "Základní výbava Classic", year: 2000, price: 249900, todayPrice: 380000, image: "images/fabia.jpg" },
+  { id: 7, title: "Nokia 3310", desc: "Legendární mobilní telefon", year: 2000, price: 9990, todayPrice: 1500, image: "images/nokia.jpg" },
+  { id: 8, title: "Lahvové pivo Gambrinus 10°", desc: "Půllitrová láhev (vč. zálohy)", year: 2000, price: 9.90, todayPrice: 21, image: "images/pivo.jpg" },
+  { id: 9, title: "Míša nanuk (55 ml)", desc: "Tvarohový nanuk v čokoládě", year: 2000, price: 8, todayPrice: 24, image: "images/misa.jpg" },
+  { id: 10, title: "Cukrářská vata / Sladkosti", desc: "Balíček vatových bonbónů", year: 2000, price: 15, todayPrice: 45, image: "images/vata.jpg" },
 
   // --- 2007 ---
-  {
-    id: 11,
-    title: "Benzín Natural 95 (1 litr)",
-    desc: "Průměrná cena na čerpacích stanicích",
-    year: 2007,
-    price: 29.50,
-    todayPrice: 38.50,
-    image: "images/benzin.jpg"
-  },
-  {
-    id: 12,
-    title: "Lístek do kina na Vratné lahve",
-    desc: "Standardní vstupenka v multiplexu",
-    year: 2007,
-    price: 110,
-    todayPrice: 220,
-    image: "images/kino.jpg"
-  },
-  {
-    id: 13,
-    title: "Kniha Harry Potter a relikvie smrti",
-    desc: "České vázané vydání",
-    year: 2007,
-    price: 499,
-    todayPrice: 599,
-    image: "images/potter.jpg"
-  },
-  {
-    id: 14,
-    title: "Jablka konzumní (1 kg)",
-    desc: "Průměrná cena čerstvých jablek",
-    year: 2007,
-    price: 23,
-    todayPrice: 38,
-    image: "images/jablka.jpg"
-  },
-  {
-    id: 15,
-    title: "Vstupenka na Rock for People",
-    desc: "Celofestivalový lístek",
-    year: 2007,
-    price: 1150,
-    todayPrice: 3990,
-    image: "images/rfp.jpg"
-  },
+  { id: 11, title: "Benzín Natural 95 (1 litr)", desc: "Průměrná cena na čerpacích stanicích", year: 2007, price: 29.50, todayPrice: 38.50, image: "images/benzin.jpg" },
+  { id: 12, title: "Lístek do kina na Vratné lahve", desc: "Standardní vstupenka v multiplexu", year: 2007, price: 110, todayPrice: 220, image: "images/kino.jpg" },
+  { id: 13, title: "Kniha Harry Potter a relikvie smrti", desc: "České vázané vydání", year: 2007, price: 499, todayPrice: 599, image: "images/potter.jpg" },
+  { id: 14, title: "Jablka konzumní (1 kg)", desc: "Průměrná cena čerstvých jablek", year: 2007, price: 23, todayPrice: 38, image: "images/jablka.jpg" },
+  { id: 15, title: "Vstupenka na Rock for People", desc: "Celofestivalový lístek", year: 2007, price: 1150, todayPrice: 3990, image: "images/rfp.jpg" },
 
   // --- 2015 ---
-  {
-    id: 16,
-    title: "Apple iPhone 6 (16GB)",
-    desc: "Nový smartphone od Apple",
-    year: 2015,
-    price: 21190,
-    todayPrice: 25000,
-    image: "images/iphone.jpg"
-  },
-  {
-    id: 17,
-    title: "Čerstvé máslo 250g",
-    desc: "Kostka tradičního másla",
-    year: 2015,
-    price: 34,
-    todayPrice: 62,
-    image: "images/maslo.jpg"
-  },
-  {
-    id: 18,
-    title: "Vejce čerstvá (10 ks)",
-    desc: "Balení vajec velikosti M",
-    year: 2015,
-    price: 28,
-    todayPrice: 52,
-    image: "images/vajicka.jpg"
-  },
-  {
-    id: 19,
-    title: "Školní obědy (měsíčně)",
-    desc: "Průměrná cena stravného na základní škole",
-    year: 2015,
-    price: 520,
-    todayPrice: 950,
-    image: "images/obedy.jpg"
-  },
-  {
-    id: 20,
-    title: "Čistý nájem bytu 2+1 (mimo Prahu)",
-    desc: "Průměrný měsíční nájem bez energií",
-    year: 2015,
-    price: 7500,
-    todayPrice: 15000,
-    image: "images/najem.jpg"
-  }
+  { id: 16, title: "Apple iPhone 6 (16GB)", desc: "Nový smartphone od Apple", year: 2015, price: 21190, todayPrice: 25000, image: "images/iphone.jpg" },
+  { id: 17, title: "Čerstvé máslo 250g", desc: "Kostka tradičního másla", year: 2015, price: 34, todayPrice: 62, image: "images/maslo.jpg" },
+  { id: 18, title: "Vejce čerstvá (10 ks)", desc: "Balení vajec velikosti M", year: 2015, price: 28, todayPrice: 52, image: "images/vajicka.jpg" },
+  { id: 19, title: "Školní obědy (měsíčně)", desc: "Průměrná cena stravného na základní škole", year: 2015, price: 520, todayPrice: 950, image: "images/obedy.jpg" },
+  { id: 20, title: "Čistý nájem bytu 2+1 (mimo Prahu)", desc: "Průměrný měsíční nájem bez energií", year: 2015, price: 7500, todayPrice: 15000, image: "images/najem.jpg" }
 ];
 
 // --- HERNÍ STAV ---
@@ -204,7 +59,6 @@ let currentItems = [];
 let currentRound = 0;
 let totalScore = 0;
 
-// Generátor náhradního SVG obrázku v případě chybějícího souboru
 function createFallbackSVG(title) {
   const encodedTitle = encodeURIComponent(title);
   return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="100%" height="100%" fill="%230f172a"/><text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" fill="%23f59e0b" font-family="sans-serif" font-size="28" font-weight="bold">${encodedTitle}</text><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" fill="%2364748b" font-family="sans-serif" font-size="16">RetroCena.cz</text></svg>`;
@@ -221,11 +75,9 @@ function resetToHome(e) {
 
 function startGame(mode) {
   if (mode === 'mix') {
-    // Zamícháme všechny a vybereme přesně 10 položek pro 10 kol
     currentItems = [...itemsDatabase].sort(() => 0.5 - Math.random()).slice(0, 10);
   } else {
     const selectedYear = parseInt(mode);
-    // Vybereme všechny dostupné položky z daného roku
     currentItems = itemsDatabase.filter(item => item.year === selectedYear).sort(() => 0.5 - Math.random());
   }
 
@@ -274,12 +126,10 @@ function submitGuess() {
   const item = currentItems[currentRound];
   const realPrice = item.price;
 
-  // Výpočet přesnosti a skóre (max 1000 na kolo)
   const diffPercent = Math.abs(userGuess - realPrice) / realPrice;
   let roundScore = Math.max(0, Math.round(1000 * (1 - diffPercent)));
   totalScore += roundScore;
 
-  // Zobrazení výsledků kola
   document.getElementById('res-year').innerText = item.year;
   document.getElementById('real-price').innerText = `${realPrice.toLocaleString('cs-CZ')} Kč`;
   document.getElementById('today-price').innerText = `${item.todayPrice.toLocaleString('cs-CZ')} Kč`;
@@ -295,7 +145,6 @@ function submitGuess() {
     diffTextEl.innerHTML = `<span class="text-rose-400 font-bold">Mimo terč... (+${roundScore} b.)</span>`;
   }
 
-  // Kontext průměrné mzdy
   const avgWage = AVERAGE_WAGES[item.year];
   if (avgWage) {
     const pcsFromWage = Math.floor(avgWage / realPrice);
@@ -338,9 +187,88 @@ function showFinalScreen() {
   } else {
     rankEl.innerText = "😅 Zřejmě jsi v té době ještě nebyl na světě nebo jsi nechodil nakupovat!";
   }
+
+  const saveForm = document.getElementById('save-score-form');
+  if (saveForm) saveForm.classList.remove('hidden');
+
+  // Načíst aktuální žebříček z Firebase
+  loadLeaderboard();
 }
 
-// --- FUNKCE PRO SDÍLENÍ A POZVÁNÍ PŘÁTEL ---
+// --- ONLINE ŽEBŘÍČEK (FIREBASE) ---
+
+function saveScoreToLeaderboard() {
+  const nameInput = document.getElementById('player-name');
+  const playerName = nameInput.value.trim();
+
+  if (!playerName) {
+    alert("Zadej prosím své jméno!");
+    return;
+  }
+
+  if (typeof firebase === 'undefined') {
+    alert("Databáze není dostupná.");
+    return;
+  }
+
+  const db = firebase.database();
+  const leaderboardRef = db.ref('leaderboard');
+
+  leaderboardRef.push({
+    name: playerName,
+    score: totalScore,
+    date: new Date().toLocaleDateString('cs-CZ')
+  }).then(() => {
+    document.getElementById('save-score-form').classList.add('hidden');
+    loadLeaderboard();
+  }).catch((err) => {
+    console.error("Chyba při ukládání:", err);
+    alert("Došlo k chybě při ukládání skóre. Zkontroluj nastavení Rules ve Firebase.");
+  });
+}
+
+function loadLeaderboard() {
+  const listEl = document.getElementById('leaderboard-list');
+  if (!listEl) return;
+
+  if (typeof firebase === 'undefined') {
+    listEl.innerHTML = '<div class="text-slate-400 text-center italic">Databáze není připojená.</div>';
+    return;
+  }
+
+  listEl.innerHTML = '<div class="text-center text-slate-400 py-2">Načítání žebříčku...</div>';
+
+  const db = firebase.database();
+  const topScoresRef = db.ref('leaderboard').orderByChild('score').limitToLast(10);
+
+  topScoresRef.once('value', (snapshot) => {
+    const scores = [];
+    snapshot.forEach((child) => {
+      scores.push(child.val());
+    });
+
+    // Seřadíme od nejvyššího po nejnižší
+    scores.reverse();
+
+    if (scores.length === 0) {
+      listEl.innerHTML = '<div class="text-center text-slate-400 py-2">Zatím žádné zapsané skóre. Buď první!</div>';
+      return;
+    }
+
+    listEl.innerHTML = scores.map((item, index) => {
+      const isTop3 = index < 3 ? 'text-amber-400 font-bold' : 'text-slate-300';
+      const medal = index === 0 ? '🥇 ' : index === 1 ? '🥈 ' : index === 2 ? '🥉 ' : `${index + 1}. `;
+      return `
+        <div class="flex justify-between items-center py-1.5 px-2 rounded bg-slate-900/50 border-b border-slate-700/30">
+          <span class="${isTop3}">${medal}${item.name}</span>
+          <span class="font-mono ${isTop3}">${item.score.toLocaleString('cs-CZ')} b.</span>
+        </div>
+      `;
+    }).join('');
+  });
+}
+
+// --- FUNKCE PRO SDÍLENÍ ---
 
 function getShareText() {
   const scoreElement = document.getElementById('final-score');
@@ -369,19 +297,9 @@ async function shareResult() {
 
 function copyResultText() {
   const text = getShareText();
-  const copyBtn = document.getElementById('copy-btn');
   
   navigator.clipboard.writeText(text).then(() => {
-    if (copyBtn) {
-      const originalText = copyBtn.innerHTML;
-      copyBtn.innerHTML = '✅ Zkopírováno!';
-      copyBtn.classList.add('bg-emerald-600', 'text-white');
-      
-      setTimeout(() => {
-        copyBtn.innerHTML = originalText;
-        copyBtn.classList.remove('bg-emerald-600', 'text-white');
-      }, 2500);
-    }
+    alert('Výsledek a pozvánka byly zkopírovány do schránky! Můžeš je poslat přátelům.');
   }).catch(err => {
     alert('Text výzvy:\n\n' + text);
   });
