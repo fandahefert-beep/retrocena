@@ -25,33 +25,53 @@ const AVERAGE_WAGES = {
 };
 
 const itemsDatabase = [
-  // --- 1993 ---
+  // ==================== ROK 1993 (10 položek) ====================
   { id: 1, title: "Chléb konzumní (1 kg)", desc: "Kvasový pšenično-žitný chléb", year: 1993, price: 14, todayPrice: 42, image: "images/chleb.jpg" },
   { id: 2, title: "Časopis Čtyřlístek", desc: "Sešitové číslo v PNS stánku", year: 1993, price: 12, todayPrice: 50, image: "images/ctyrlistek.jpg" },
   { id: 3, title: "Mléko pasterované (1 l)", desc: "Sáčkové polotučné mléko", year: 1993, price: 6.50, todayPrice: 24, image: "images/mleko.jpg" },
   { id: 4, title: "Jízdenka na MHD v Praze", desc: "Základní přestupní jízdenka", year: 1993, price: 6, todayPrice: 40, image: "images/jizdenka.jpg" },
   { id: 5, title: "Cigarety Sparta", desc: "Krabička tvrdých Spart", year: 1993, price: 28, todayPrice: 150, image: "images/cigarety.jpg" },
+  { id: 6, title: "Škoda Favorit 135L (nová)", desc: "Nový osobní automobil Škoda", year: 1993, price: 198000, todayPrice: 380000, image: "images/favorit.jpg" },
+  { id: 7, title: "Poštovní známka na dopis", desc: "Standardní poštovné po ČR", year: 1993, price: 3, todayPrice: 34, image: "images/znamka.jpg" },
+  { id: 8, title: "Kostka másla (250g)", desc: "Tradiční čerstvé máslo", year: 1993, price: 18, todayPrice: 62, image: "images/maslo93.jpg" },
+  { id: 9, title: "Čokoláda Studentská pečeť", desc: "Mléčná čokoláda 200g", year: 1993, price: 25, todayPrice: 75, image: "images/studentka.jpg" },
+  { id: 10, title: "Pivo Pilsner Urquell (0.5l)", desc: "Lahvový světlý ležák", year: 1993, price: 12, todayPrice: 38, image: "images/pilsner93.jpg" },
 
-  // --- 2000 ---
-  { id: 6, title: "Škoda Fabia 1.4 MPI (nová)", desc: "Základní výbava Classic", year: 2000, price: 249900, todayPrice: 380000, image: "images/fabia.jpg" },
-  { id: 7, title: "Nokia 3310", desc: "Legendární mobilní telefon", year: 2000, price: 9990, todayPrice: 1500, image: "images/nokia.jpg" },
-  { id: 8, title: "Lahvové pivo Gambrinus 10°", desc: "Půllitrová láhev (vč. zálohy)", year: 2000, price: 9.90, todayPrice: 21, image: "images/pivo.jpg" },
-  { id: 9, title: "Míša nanuk (55 ml)", desc: "Tvarohový nanuk v čokoládě", year: 2000, price: 8, todayPrice: 24, image: "images/misa.jpg" },
-  { id: 10, title: "Cukrářská vata / Sladkosti", desc: "Balíček vatových bonbónů", year: 2000, price: 15, todayPrice: 45, image: "images/vata.jpg" },
+  // ==================== ROK 2000 (10 položek) ====================
+  { id: 11, title: "Škoda Fabia 1.4 MPI (nová)", desc: "Základní výbava Classic", year: 2000, price: 249900, todayPrice: 380000, image: "images/fabia.jpg" },
+  { id: 12, title: "Nokia 3310", desc: "Legendární mobilní telefon", year: 2000, price: 9990, todayPrice: 1500, image: "images/nokia.jpg" },
+  { id: 13, title: "Lahvové pivo Gambrinus 10°", desc: "Půllitrová láhev (bez zálohy)", year: 2000, price: 9.90, todayPrice: 21, image: "images/pivo.jpg" },
+  { id: 14, title: "Míša nanuk (55 ml)", desc: "Tvarohový nanuk v čokoládě", year: 2000, price: 8, todayPrice: 24, image: "images/misa.jpg" },
+  { id: 15, title: "Cukrářská vata / Sladkosti", desc: "Balíček vatových bonbónů", year: 2000, price: 15, todayPrice: 45, image: "images/vata.jpg" },
+  { id: 16, title: "Kola Coca-Cola (2 litry)", desc: "PET láhev nápoje", year: 2000, price: 29.90, todayPrice: 48, image: "images/cocacola.jpg" },
+  { id: 17, title: "PlayStation 2 (konzole)", desc: "Nová herní konzole Sony", year: 2000, price: 18990, todayPrice: 13500, image: "images/ps2.jpg" },
+  { id: 18, title: "Káva Jihlavanka (75g)", desc: "Mletá káva Standard", year: 2000, price: 19.90, todayPrice: 45, image: "images/jihlavanka.jpg" },
+  { id: 19, title: "Lístek do kina", desc: "Běžné vstupné do kina", year: 2000, price: 70, todayPrice: 220, image: "images/kino2000.jpg" },
+  { id: 20, title: "Vejce čerstvá (10 ks)", desc: "Balení 10 ks vajec", year: 2000, price: 21, todayPrice: 52, image: "images/vejce2000.jpg" },
 
-  // --- 2007 ---
-  { id: 11, title: "Benzín Natural 95 (1 litr)", desc: "Průměrná cena na čerpacích stanicích", year: 2007, price: 29.50, todayPrice: 38.50, image: "images/benzin.jpg" },
-  { id: 12, title: "Lístek do kina na Vratné lahve", desc: "Standardní vstupenka v multiplexu", year: 2007, price: 110, todayPrice: 220, image: "images/kino.jpg" },
-  { id: 13, title: "Kniha Harry Potter a relikvie smrti", desc: "České vázané vydání", year: 2007, price: 499, todayPrice: 599, image: "images/potter.jpg" },
-  { id: 14, title: "Jablka konzumní (1 kg)", desc: "Průměrná cena čerstvých jablek", year: 2007, price: 23, todayPrice: 38, image: "images/jablka.jpg" },
-  { id: 15, title: "Vstupenka na Rock for People", desc: "Celofestivalový lístek", year: 2007, price: 1150, todayPrice: 3990, image: "images/rfp.jpg" },
+  // ==================== ROK 2007 (10 položek) ====================
+  { id: 21, title: "Benzín Natural 95 (1 litr)", desc: "Průměrná cena na čerpacích stanicích", year: 2007, price: 29.50, todayPrice: 38.50, image: "images/benzin.jpg" },
+  { id: 22, title: "Lístek do kina na Vratné lahve", desc: "Standardní vstupenka v multiplexu", year: 2007, price: 110, todayPrice: 220, image: "images/kino.jpg" },
+  { id: 23, title: "Kniha Harry Potter a relikvie smrti", desc: "České vázané vydání", year: 2007, price: 499, todayPrice: 599, image: "images/potter.jpg" },
+  { id: 24, title: "Jablka konzumní (1 kg)", desc: "Průměrná cena čerstvých jablek", year: 2007, price: 23, todayPrice: 38, image: "images/jablka.jpg" },
+  { id: 25, title: "Vstupenka na Rock for People", desc: "Celofestivalový lístek", year: 2007, price: 1150, todayPrice: 3990, image: "images/rfp.jpg" },
+  { id: 26, title: "Škoda Octavia II Combi (nová)", desc: "Motorizace 1.9 TDI", year: 2007, price: 524900, todayPrice: 650000, image: "images/octavia.jpg" },
+  { id: 27, title: "LCD Monitor 19\" (PC)", desc: "Stolní LCD obrazovka", year: 2007, price: 5400, todayPrice: 2500, image: "images/monitor.jpg" },
+  { id: 28, title: "Kofola (2 litry)", desc: "Tradiční nealkoholický nápoj", year: 2007, price: 22.90, todayPrice: 38, image: "images/kofola.jpg" },
+  { id: 29, title: "Kuřecí prsní řízky (1 kg)", desc: "Čerstvé chlazené masa", year: 2007, price: 125, todayPrice: 180, image: "images/kureci.jpg" },
+  { id: 30, title: "Měsíční kupón MHD Praha", desc: "Měsíční legitimace (dospělý)", year: 2007, price: 460, todayPrice: 550, image: "images/mhd2007.jpg" },
 
-  // --- 2015 ---
-  { id: 16, title: "Apple iPhone 6 (16GB)", desc: "Nový smartphone od Apple", year: 2015, price: 21190, todayPrice: 25000, image: "images/iphone.jpg" },
-  { id: 17, title: "Čerstvé máslo 250g", desc: "Kostka tradičního másla", year: 2015, price: 34, todayPrice: 62, image: "images/maslo.jpg" },
-  { id: 18, title: "Vejce čerstvá (10 ks)", desc: "Balení vajec velikosti M", year: 2015, price: 28, todayPrice: 52, image: "images/vajicka.jpg" },
-  { id: 19, title: "Školní obědy (měsíčně)", desc: "Průměrná cena stravného na základní škole", year: 2015, price: 520, todayPrice: 950, image: "images/obedy.jpg" },
-  { id: 20, title: "Čistý nájem bytu 2+1 (mimo Prahu)", desc: "Průměrný měsíční nájem bez energií", year: 2015, price: 7500, todayPrice: 15000, image: "images/najem.jpg" }
+  // ==================== ROK 2015 (10 položek) ====================
+  { id: 31, title: "Apple iPhone 6 (16GB)", desc: "Nový smartphone od Apple", year: 2015, price: 21190, todayPrice: 25000, image: "images/iphone.jpg" },
+  { id: 32, title: "Čerstvé máslo 250g", desc: "Kostka tradičního másla", year: 2015, price: 34, todayPrice: 62, image: "images/maslo.jpg" },
+  { id: 33, title: "Vejce čerstvá (10 ks)", desc: "Balení vajec velikosti M", year: 2015, price: 28, todayPrice: 52, image: "images/vajicka.jpg" },
+  { id: 34, title: "Školní obědy (měsíčně)", desc: "Průměrná cena stravného na ZŠ", year: 2015, price: 520, todayPrice: 950, image: "images/obedy.jpg" },
+  { id: 35, title: "Čistý nájem bytu 2+1 (mimo Prahu)", desc: "Průměrný měsíční nájem bez energií", year: 2015, price: 7500, todayPrice: 15000, image: "images/najem.jpg" },
+  { id: 36, title: "PlayStation 4 (500GB)", desc: "Herní konzole Sony", year: 2015, price: 9990, todayPrice: 12000, image: "images/ps4.jpg" },
+  { id: 37, title: "Předplatné Netflix (Basic/měsíc)", desc: "Měsíční tarif pro 1 zařízení", year: 2015, price: 199, todayPrice: 239, image: "images/netflix.jpg" },
+  { id: 38, title: "Cukr krystal (1 kg)", desc: "Balení bílého cukru", year: 2015, price: 14.50, todayPrice: 28, image: "images/cukr.jpg" },
+  { id: 39, title: "Cigarety Marlboro", desc: "Krabička Marlboro Red", year: 2015, price: 94, todayPrice: 160, image: "images/marlboro.jpg" },
+  { id: 40, title: "Mletá káva Tchibo (250g)", desc: "Balení kávy Tchibo Gold", year: 2015, price: 69, todayPrice: 110, image: "images/tchibo.jpg" }
 ];
 
 // --- HERNÍ STAV ---
@@ -78,7 +98,7 @@ function startGame(mode) {
     currentItems = [...itemsDatabase].sort(() => 0.5 - Math.random()).slice(0, 10);
   } else {
     const selectedYear = parseInt(mode);
-    currentItems = itemsDatabase.filter(item => item.year === selectedYear).sort(() => 0.5 - Math.random());
+    currentItems = itemsDatabase.filter(item => item.year === selectedYear).sort(() => 0.5 - Math.random()).slice(0, 10);
   }
 
   if (currentItems.length === 0) {
